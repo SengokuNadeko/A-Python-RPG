@@ -56,3 +56,23 @@ class Player(pygame.sprite.Sprite):
         #we set the translation variables to 0 again so that the player object does not move out of screen
         self.x_translation = 0
         self.y_translation = 0
+
+
+class Walls(pygame.sprite.Sprite):
+    def __init__(self, game, x, y):
+        self.game = game
+        self._layer = LAYER_WALLS #handles the sprite layer for the wall class. the underscore at the beginning of the variable is just to show that it's supposed to be used internally for this class. it has no built in function
+        self.sprite_groups = self.game.all_sprites, self.game.block_sprites
+        pygame.sprite.Sprite.__init__(self, self.sprite_groups)
+
+        self.x = x * MAP_TILE_SIZE
+        self.y = y * MAP_TILE_SIZE
+        self.width = MAP_TILE_SIZE 
+        self.height = MAP_TILE_SIZE 
+        
+        self.image = pygame.Surface([self.width, self.height]) #creating the wall sprite image. right now this is creating a rectangle.
+        self.image.fill(WALL_RECT_COLOR) #filling the rectangle with a color. the color is determined in config.py
+
+        self.rect = self.image.get_rect()
+        self.rect.x = self.x
+        self.rect.y = self.y

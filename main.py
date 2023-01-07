@@ -11,6 +11,14 @@ class Main_Game:
         #self.font = pygame.font.Font('Arial', 32)
         self.is_running = True
 
+    def create_proto_map(self):
+        for i, row in enumerate(PROTO_LEVEL_TILE_MAP):
+            for j, column in enumerate(row):
+                if(column == "B"):
+                    Walls(self, j, i)
+                if(column == "P"):
+                    Player(self, j, i)
+
     def new(self):
         self.is_playing = True #this and is_running are booleans that will determine if the game is running or not for various reasons.
         self.all_sprites = pygame.sprite.LayeredUpdates() #LayeredUpdates creates a sprite group that handles layers and draws sprites in the game for sprites in this group.
@@ -18,7 +26,7 @@ class Main_Game:
         self.enemy_sprites = pygame.sprite.LayeredUpdates()
         self.attack_sprites = pygame.sprite.LayeredUpdates()
 
-        self.player = Player(self, 1, 1)
+        self.create_proto_map()
 
     def events(self):
         for event in pygame.event.get(): #gets all events in pygame and iterates through them
