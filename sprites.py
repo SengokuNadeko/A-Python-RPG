@@ -46,8 +46,10 @@ class Player(pygame.sprite.Sprite):
             self.player_direction = "facing_down"
 
     def update(self):
+        #calling the player_movement variable. we call it in update to check each frame if the player is moving.
         self.player_movement()
 
+        #changes the player's position on the map. we do this in the update method since it gets called each frame.
         self.rect.x += self.x_translation
         self.rect.y += self.y_translation
 
