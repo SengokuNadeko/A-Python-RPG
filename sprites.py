@@ -15,6 +15,11 @@ class Player(pygame.sprite.Sprite):
         self.width = MAP_TILE_SIZE #setting the width of the player object
         self.height = MAP_TILE_SIZE #setting the height of the player object
 
+        self.x_translation = 0 #stores the player's movement on the x axis
+        self.y_translation = 0 #stores the player's movement on the y axis
+
+        self.player_direction = "facing_down" #stores which direction the player object is facing. it will change depending on player's movement. the default state is facing_down
+
         self.image = pygame.Surface([self.width, self.height]) #creating the player sprite image. right now this is creating a rectangle.
         self.image.fill(RECT_COLOR) #filling the rectangle with a color. the color is determined in config.py
 
@@ -22,5 +27,30 @@ class Player(pygame.sprite.Sprite):
         self.rect.x = self.x
         self.rect.y = self.y
 
+    def player_movement(self):
+        keys = pygame.key.get_pressed()
+        if(keys[pygame.K_a]):
+            self.x_translation -= MOVEMENT_SPEED
+            self.player_direction = "facing_left"
+
+        if(keys[pygame.K_d]):
+            self.x_translation += MOVEMENT_SPEED
+            self.player_direction = "facing_right"
+
+        if(keys[pygame.K_w]):
+            self.y_translation -= MOVEMENT_SPEED
+            self.player_direction = "facing_up"
+
+        if(keys[pygame.K_s]):
+            self.y_translation += MOVEMENT_SPEED
+            self.player_direction = "facing_down"
+
     def update(self):
-        pass
+        self.player_movement()
+
+        self.rect.x += self.x_translation
+        self.rect.y += self.y_translation
+
+        #we set the translation variables to 0 again so that the player object does not move out of screen
+        self.x_translation = 0
+        self.y_translation = 0
