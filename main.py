@@ -11,9 +11,14 @@ class Main_Game:
         #self.font = pygame.font.Font('Arial', 32)
         self.is_running = True
 
+        self.character_sprite_sheet = Sprite_Sheet('images/MiniWorldSprites/Characters/Champions/Arthax.png')
+        self.wall_sprite_sheet = Sprite_Sheet('images/MiniWorldSprites/Miscellaneous/Signs.png')
+        self.tile_sprite_sheet = Sprite_Sheet('images/MiniWorldSprites/Ground/TexturedGrass.png')
+
     def create_proto_map(self):
         for i, row in enumerate(PROTO_LEVEL_TILE_MAP):
             for j, column in enumerate(row):
+                Ground(self, j, i)
                 if(column == "B"):
                     Walls(self, j, i)
                 if(column == "P"):
@@ -39,7 +44,7 @@ class Main_Game:
         self.all_sprites.update() #this will find the update method in all objects in the sprite group and run them.
 
     def draw(self):
-        self.screen.fill(BG_COLOR) #fills the screen with the color defined in BG_COLOR in config.py
+        self.screen.fill(BLACK) #fills the screen with the color defined in BLACK in config.py
         self.all_sprites.draw(self.screen) #draws all the sprites in the sprite group on the screen
         self.clock.tick(FRAME_RATE) #this ticks through a certain framerate defined in FRAME_RATE in config.py
         pygame.display.update()  #this updates the display
