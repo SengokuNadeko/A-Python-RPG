@@ -56,13 +56,34 @@ class Player(pygame.sprite.Sprite):
             self.y_translation += MOVEMENT_SPEED
             self.player_direction = "facing_down"
 
+    #defining the collision_check function to detect collision when the player object hits something that is collidable 
+    def collision_check(self, direction):
+        if(direction == "x"):
+            hits = pygame.sprite.spritecollide(self, self.game.block_sprites, False)
+            if(hits):
+                if(self.x_translation > 0):
+                    self.rect.x = hits[0].rect.left - self.rect.width #hits is a list. when we defined hits, we made sure it adds all the sprites in the block_sprites sprite group to the list. we use 0 in the index to indicate the wall spries in the sprite group because it is the first group of sprites that was added to the list.
+                if(self.x_translation < 0):
+                    self.rect.x = hits[0].rect.right
+
+        if(direction == "y"):
+            hits = pygame.sprite.spritecollide(self, self.game.block_sprites, False)
+            if(hits):
+                if(self.y_translation > 0):
+                    self.rect.y = hits[0].rect.top - self.rect.height
+                if(self.y_translation < 0):
+                    self.rect.y = hits[0].rect.bottom
+
     def update(self):
         #calling the player_movement variable. we call it in update to check each frame if the player is moving.
         self.player_movement()
 
         #changes the player's position on the map. we do this in the update method since it gets called each frame.
         self.rect.x += self.x_translation
+        self.collision_check("x")
+
         self.rect.y += self.y_translation
+        self.collision_check("y")
 
         #we set the translation variables to 0 again so that the player object does not move out of screen
         self.x_translation = 0
