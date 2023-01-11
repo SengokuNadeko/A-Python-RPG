@@ -5,13 +5,14 @@ import random
 
 class Sprite_Sheet:
     def __init__(self, file):
-        self.sprite_sheet = pygame.image.load(file).convert()
-    
+        self.sprite_sheet = pygame.image.load(file).convert_alpha()
+
     def get_sprite(self, x, y, width, height):
         sprite = pygame.Surface([width, height])
         sprite.blit(self.sprite_sheet, (0,0), (x, y, width, height))
         sprite.set_colorkey(BLACK)
         return sprite
+    
 
 class Player(pygame.sprite.Sprite):
     def __init__(self, game, x, y): #the game parameter is for the player object to access everything in the Main_Game class. the x and y parameters are for the player object's position in the game map.
