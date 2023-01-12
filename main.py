@@ -14,6 +14,7 @@ class Main_Game:
         self.character_sprite_sheet = Sprite_Sheet('images/MiniWorldSprites/Characters/Champions/Arthax.png')
         self.wall_sprite_sheet = Sprite_Sheet('images/MiniWorldSprites/Miscellaneous/Signs.png')
         self.tile_sprite_sheet = Sprite_Sheet('images/MiniWorldSprites/Ground/TexturedGrass.png')
+        self.enemy_sprite_sheet = Sprite_Sheet('images/MiniWorldSprites/Characters/Monsters/Slimes/Slime.png')
 
     def create_proto_map(self):
         for i, row in enumerate(PROTO_LEVEL_TILE_MAP):
@@ -23,6 +24,8 @@ class Main_Game:
                     Walls(self, j, i)
                 if(column == "P"):
                     Player(self, j, i)
+                if(column == "E"):
+                    Enemies(self, j, i)
 
     def new(self):
         self.is_playing = True #this and is_running are booleans that will determine if the game is running or not for various reasons.
